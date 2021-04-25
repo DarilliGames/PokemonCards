@@ -14,12 +14,17 @@ SCOPE = [
 if os.path.exists("env.py"):
     import env
 
+p1 =os.environ.get("P1")
+p2 =os.environ.get("P2")
+p3 =os.environ.get("P3")
+p4 =os.environ.get("P4")
+p5 =os.environ.get("P5")
 
 creds = {
   "type": "service_account",
   "project_id": "pokemonspreadsheet",
   "private_key_id": os.environ.get("GPKID"),
-#   "private_key": os.environ.get("GPK"),
+  "private_key": f"-----BEGIN PRIVATE KEY-----\n{p1}\n{p2}\n{p3}\n{p4}\n{p5}\nGcg5KJK9nQQSJS8pFuVFB8yaC5hJyuOMuDTgLt+r+hRM1Hih91Uo+bHRMHJlXFHY\nayia8VE3AgMBAAECggEASeqLdg7sf6glX2hTvdKO2QtC5ajO98CsXMFbsCoHsLzN\n4/7or39XV1RbcTMX6NvK03xYlbvef/oDMT44PAdklTrKG4mswuSxzTEN+0VK654H\nsLaUEH0C9PNC7iIQjKsjVIymF+c+/eYZWf5Tjbia/3oZqyLTaOFU+/5nBtWmkeA6\nT9o/zNT1F1N0bGP8803AJzBdcOdMTtwV40PIWefAOPAp6TnybMNiAzGifQ7YdFvM\n8b518oIzVYFcqG2smnFeNhoFtTDqWOXFs7MG1FvblCTawkyxNAOFT/Zrr3zabSDl\ngQ+9NyDQfPrp2Q5DaNlxTr2m3iUuNXGNS7xv5GONwQKBgQDPITNzgMmp/kuGq50/\nxPC9P71vtoa7Wh0OhDXTyFHGX4mUR2kPH4xPur3OGhbD4IfXNW8U2278J1MDkZ5t\napm0MjevAo3x6qY6CI0Xn3kfgyi1RFw6dZhCPcHICP/QWJwjfxTgzpNaURbWy1iL\nIdWHDX9LQ+6wa7BJSZarWIXO1QKBgQDMwrYI/NexGwuVavKWnn8JhpY6Iqa/zDV+\nB2jzDOqFGnwaPMnUHRWmAKBH0eS68h7jUD++ggrtv4jKk+neYcboCEuCvy/2BPK4\nUH9cIt9J53Ov41zIJhxJoCPyKgLMjCeDT4Au0R3w0Tor5AfmkwAqoUP/6I4Qd+NX\nhJbAWf5d2wKBgGZT17BTSs2xtKxGcjxD1k8Yg0UCXpOGVF6MkG8dQtEG99gKY2u2\nQUJOVmDQ4LhKX7HBUyxxr+Xgo5FaynLxvBeay4mpcGi4bQC0oset4E/iIyVSLWIw\nIFVxXx+s2nyamiCrMqxRQdjXwLnC4e5ye6Pp1h5f5DbCLOg387iY1ho1AoGBALKU\n5zqzelLGqbWpTuY6WcWvEfqmGhSRP94pDElebHOmA7LGbaiHrUfYp/G7h+fcH0BV\nzyKSPIHaWK2Fj6UaVeYsxd7EbEn/Ssmhu1JaP7AvIuC2RUdypZ05A+DC7yoC2rtV\nbRBn5dsQP9Hj0VgxwSVs/OeGpdCLH0ZHJ0ufsY+dAoGAHj8eSF9qvS9RzBDMHcqG\nLnYk2qxcCnowksbGYoMWmfPm8GwGPn9bFaEFdQM7QSxKqEIwg5Ln+jlipZ06l38e\nISToTC90DwhtOf7hNNQqufjka39xfAVYoCxseV1MTFfNyAsyKIOPgG9OLg0RJoYn\nAI98hrLde4Xl3oOPyGUY+pA=\n-----END PRIVATE KEY-----\n",
   "client_email": os.environ.get("GSEMAIL"),
   "client_id": os.environ.get("GSID"),
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
@@ -27,7 +32,6 @@ creds = {
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
   "client_x509_cert_url": os.environ.get("CERT_URI")
 }
-print(creds)
 
 # GSPREAD_CLIENT = gspread.service_account_from_dict(creds)
 # SHEET = GSPREAD_CLIENT.open('Pokemon Card Spreadsheet')
