@@ -11,15 +11,18 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
     ]
 
-if os.path.exists("creds.json"):
-    print("loading local Credentials")
-    CREDS = Credentials.from_service_account_file('creds.json')
-    import env
-else:
-    CREDS = Credentials.from_service_account_info(json(os.environ.get("GOOGLE_SECRET")))
+# if os.path.exists("creds.json"):
+#     print("loading local Credentials")
+#     CREDS = Credentials.from_service_account_file('creds.json')
+#     import env
+# else:
+#     CREDS = Credentials.from_service_account_info(json(os.environ.get("GOOGLE_SECRET")))
 
-SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+# import env
+
+# SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+
+GSPREAD_CLIENT = gspread.service_account_from_dict(json(os.environ.get("GOOGLE_SECRET")))
 SHEET = GSPREAD_CLIENT.open('Pokemon Card Spreadsheet')
 
 app = Flask(__name__)
