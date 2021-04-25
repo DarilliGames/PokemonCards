@@ -11,18 +11,25 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
     ]
 
-# if os.path.exists("creds.json"):
-#     print("loading local Credentials")
-#     CREDS = Credentials.from_service_account_file('creds.json')
-#     import env
-# else:
-#     CREDS = Credentials.from_service_account_info(json(os.environ.get("GOOGLE_SECRET")))
+if os.path.exists("env.py"):
+    import env
 
-# import env
 
-# SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+creds = {
+  "type": "service_account",
+  "project_id": "pokemonspreadsheet",
+  "private_key_id": os.environ.get("GPKID"),
+  "private_key": os.environ.get("GPK"),
+  "client_email": os.environ.get("GSEMAIL"),
+  "client_id": os.environ.get("GSID"),
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": os.environ.get("CERT_URI")
+}
 
-GSPREAD_CLIENT = gspread.service_account_from_dict(json(os.environ.get("GOOGLE_SECRET")))
+
+GSPREAD_CLIENT = gspread.service_account_from_dict(creds)
 SHEET = GSPREAD_CLIENT.open('Pokemon Card Spreadsheet')
 
 app = Flask(__name__)
@@ -40,7 +47,6 @@ mongo = PyMongo(app)
 
 @app.route('/')
 def index():
-    # allSets = mongo.db.sets.find()
     allSets = mongo.db.sets.find()
     return render_template("index.html", sets=allSets)
 
@@ -72,5 +78,5 @@ def login():
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
-            port=int(os.environ.get('PORT', 8000)),
+            port=int(os.environ.get('PORT', 8080)),
             debug=True)
