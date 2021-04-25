@@ -33,8 +33,8 @@ creds = {
   "client_x509_cert_url": os.environ.get("CERT_URI")
 }
 
-# GSPREAD_CLIENT = gspread.service_account_from_dict(creds)
-# SHEET = GSPREAD_CLIENT.open('Pokemon Card Spreadsheet')
+GSPREAD_CLIENT = gspread.service_account_from_dict(creds)
+SHEET = GSPREAD_CLIENT.open('Pokemon Card Spreadsheet')
 
 app = Flask(__name__)
 
