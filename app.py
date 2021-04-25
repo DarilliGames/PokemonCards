@@ -19,7 +19,7 @@ creds = {
   "type": "service_account",
   "project_id": "pokemonspreadsheet",
   "private_key_id": os.environ.get("GPKID"),
-  "private_key": os.environ.get("GPK"),
+#   "private_key": os.environ.get("GPK"),
   "client_email": os.environ.get("GSEMAIL"),
   "client_id": os.environ.get("GSID"),
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
@@ -27,10 +27,10 @@ creds = {
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
   "client_x509_cert_url": os.environ.get("CERT_URI")
 }
+print(creds)
 
-
-GSPREAD_CLIENT = gspread.service_account_from_dict(creds)
-SHEET = GSPREAD_CLIENT.open('Pokemon Card Spreadsheet')
+# GSPREAD_CLIENT = gspread.service_account_from_dict(creds)
+# SHEET = GSPREAD_CLIENT.open('Pokemon Card Spreadsheet')
 
 app = Flask(__name__)
 
@@ -70,7 +70,7 @@ def updateCardInSet(set, num):
 def login():
     if request.method == "POST":
         passwordIN = request.form.get("password")
-        if passwordIN == os.environ.get("password", "testing"):
+        if passwordIN == os.environ.get("PASSWORD", ""):
             session["user"] = "admin"
             print(session["user"])
     return redirect("/")
