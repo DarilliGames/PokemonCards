@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, request, session
+from flask import Flask, render_template, redirect, request, session, url_for
 from flask_pymongo import PyMongo
 import gspread
 from google.oauth2.service_account import Credentials
@@ -57,7 +57,7 @@ def index():
 @app.route('/set/<set>')
 def seeSet(set):
     sheet = SHEET.worksheet(set).get_all_values()
-    return render_template("sets.html", cards=sheet)
+    return render_template("sets.html", set=set, cards=sheet)
 
 @app.route('/update/<set>/<num>')
 def updateCardInSet(set, num):
@@ -68,7 +68,7 @@ def updateCardInSet(set, num):
             sheet.update("B"+str(num), "")
         else:
             sheet.update("B"+str(num), 1)
-    return redirect("/")
+    return redirect(url_for('seeSet', set=set))
 
 @app.route('/login', methods=["POST"])
 def login():

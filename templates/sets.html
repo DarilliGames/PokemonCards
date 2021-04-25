@@ -26,7 +26,7 @@
             {% for s in cards %}
             <div class="col-12 col-md-4 col-lg-2">
                 {% if "user" in session %}
-                <a href="{{ url_for('updateCardInSet', set='BaseSet', num=loop.index) }}">
+                <a href="{{ url_for('updateCardInSet', set=set, num=loop.index) }}">
                     <div class="cardbox {% if s[1] %}green{% else %}red{% endif %}">
                         {{loop.index}}. {{ s[0] }}
 
