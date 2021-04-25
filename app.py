@@ -16,7 +16,7 @@ if os.path.exists("creds.json"):
     CREDS = Credentials.from_service_account_file('creds.json')
     import env
 else:
-    CREDS = Credentials.from_service_account_info(json.(os.environ.get("GOOGLE_SECRET")))
+    CREDS = Credentials.from_service_account_info(json(os.environ.get("GOOGLE_SECRET")))
 
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
