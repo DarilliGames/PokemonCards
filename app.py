@@ -11,9 +11,14 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
     ]
 
+
+
 if os.path.exists("env.py"):
     import env
-
+    DEVELOPMENT = True
+else:
+    DEVELOPMENT = False
+    
 p1 =os.environ.get("P1")
 p2 =os.environ.get("P2")
 p3 =os.environ.get("P3")
@@ -51,13 +56,22 @@ mongo = PyMongo(app)
 
 @app.route('/')
 def index():
+
     allSets = mongo.db.sets.find()
     return render_template("index.html", sets=allSets)
 
 @app.route('/set/<set>')
 def seeSet(set):
-    sheet = SHEET.worksheet(set).get_all_values()
-    return render_template("sets.html", set=set, cards=sheet)
+    theSet = mongo.db.sets.find_one({"setId": set})
+    sheet = SHEET.worksheet(theSet["name"]).get_all_values()
+    have = 0
+    for c in sheet:
+        if c[1]:
+            have += 1
+
+    print(have)
+    mongo.db.sets.update_one({"setId": set}, {"$set": {"set_total": len(sheet), "have": have}})
+    return render_template("sets.html", set=theSet, cards=sheet)
 
 @app.route('/update/<set>/<num>')
 def updateCardInSet(set, num):
@@ -70,7 +84,7 @@ def updateCardInSet(set, num):
             sheet.update("B"+str(num), 1)
     return redirect(url_for('seeSet', set=set))
 
-@app.route('/login', methods=["POST"])
+@app.route('/login', methods=["POST", "GET"])
 def login():
     if request.method == "POST":
         passwordIN = request.form.get("password")
@@ -83,4 +97,4 @@ def login():
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT', 8080)),
-            debug=True)
+            debug=DEVELOPMENT)

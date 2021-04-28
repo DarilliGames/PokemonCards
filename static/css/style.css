@@ -1,0 +1,41 @@
+.inner-row{
+    display: flex;
+}
+
+.cardbox{
+    text-align: center;
+    height: 100%;
+    width: 100%;
+
+}
+
+.red{
+    background-color: red;
+    color: white;
+}
+.green{
+    background-color: green;
+    color: white;
+}
+
+#modal-wrapper{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: rgba(30, 30,30, .3);
+    width: 100%;
+}
+#modal-wrapper.hide{
+    display: none;
+}
+
+#modal-wrapper .container{
+    margin-top: 10%;
+}
+
+#modal-body{
+    background-color: white;
+    width: 100%;
+    height: 100%;
+}

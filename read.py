@@ -30,16 +30,26 @@ def writeSet(cardSet):
     print("Wrote Set")
 
 
-allSets = [
-    "BaseSet", "Jungle", "Fossil", "BaseSet2", "Rocket", "GymHeroes", "GymChallenge", "BlackStarPromo"
-]
-def insertListOfSets():
-    for i in range(len(allSets)):
-        theSet = {
-            "name": allSets[i],
-            "setSort": i+1
-        }
-        mongo.db.sets.insert_one(theSet)
+# allSets = [
+#     "BaseSet", "Jungle", "Fossil", "BaseSet2", "Rocket", "GymHeroes", "GymChallenge", "BlackStarPromo"
+# ]
+
+
+
+# from allsetshere import allSets
+
+# def insertListOfSets():
+#     for i in range(len(allSets)):
+#         theSet = {
+#             "name": allSets[i]["name"],
+#             "setSort": i+1,
+#             "setId": allSets[i]["id"]
+            
+#         }
+#         mongo.db.sets.insert_one(theSet)
+
+
+
 
 
 #       Using Set id from the set API call.  call the function to get write to txt file
