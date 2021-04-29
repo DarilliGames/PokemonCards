@@ -1,5 +1,10 @@
 .inner-row{
     display: flex;
+    height: 100%
+}
+
+.flex-row{
+    flex-wrap: wrap;
 }
 
 .cardbox{
@@ -30,9 +35,7 @@
     display: none;
 }
 
-#modal-wrapper .container{
-    margin-top: 10%;
-}
+
 
 
 #modal-wrapper .container .row{
@@ -45,4 +48,8 @@
     background-color: white;
     width: 100%;
     height: 100%;
+}
+
+.flex-row div button{
+    width: 100%;
 }

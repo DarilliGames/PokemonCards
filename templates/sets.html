@@ -30,33 +30,43 @@
 
             {% for s in cards %}
             <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                <div class="inner-row">
-                    {% if "user" in session %}
 
-                    <div class="col-9">
-                        <button id="card-{{loop.index}}" class="cardbox {% if s[1] %}green{% else %}red{% endif %}">
-                            {{loop.index}}. {{ s[0] }}
-                        </button>
-                    </div>
-                    <div class="col-3">
-                        <div><button id="{{set.setId}}-{{loop.index}}" class="magnify"><i
-                                    class="fa fa-file"></i></button></div>
-                        <div><a href="{{ url_for('updateCardInSet', set=set, num=loop.index) }}"><button>x</button></a>
+
+                {% if "user" in session %}
+                <div class="inner-row">
+                <div class="col-9">
+                    <button id="card-{{loop.index}}" class="cardbox {% if s[1] %}green{% else %}red{% endif %}">
+                        {{loop.index}}. {{ s[0] }}
+                    </button>
+                </div>
+                <div class="col-3">
+                    <div class="inner-row flex-row">
+                        <div class="col-6 col-md-12">
+                            <button id="{{set.setId}}-{{loop.index}}" class="magnify">
+                                <i class="fa fa-file"></i>
+                            </button>
+                        </div>
+                        <div class="col-6 col-md-12">
+                            <a href="{{ url_for('updateCardInSet', set=set.setId, num=loop.index) }}">
+                                <button>x</button>
+                            </a>
                         </div>
                     </div>
-                
+                </div>
+            </div>
                 {% else %}
-                <div id="{{set.setId}}-{{loop.index}}" class="magnify cardbox {% if s[1] %}green{% else %}red{% endif %}">
+                <div id="{{set.setId}}-{{loop.index}}"
+                    class="magnify cardbox {% if s[1] %}green{% else %}red{% endif %}">
                     {{loop.index}}. {{ s[0] }}
 
                 </div>
                 {% endif %}
+
             </div>
+            {% endfor %}
+
+
         </div>
-        {% endfor %}
-
-
-    </div>
     </div>
     <div id="modal-wrapper" class="hide">
         <div class="container">
