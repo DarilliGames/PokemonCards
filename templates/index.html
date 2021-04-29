@@ -32,20 +32,25 @@
         {% else %}
         {{ session["user"]}}
         {% endif %}
+
+
         <div class="row">
             {% for s in sets %}
-            <div class="col-12 col-md-4 col-lg-2">
+            <div class="col-12 col-md-4 col-lg-3">
                 <div class="inner-row">
                     <div class="col-8">
                         <a href="{{ url_for('seeSet', set=s.setId ) }}">
-                            {{ s.name }}                           
+                            {{ s.name }}
                         </a>
                     </div>
                     <div class="col-4">
                         {% if s.have %}
-                            {% if s.have == s.set_total %}
+                        <div class="{% if s.have == s.set_total %}green{% else %}red{% endif %}">
                             {{ s.have }}/{{ s.set_total }}
-                            {% endif %}
+                        </div>
+                           
+                            
+                        
                         {% endif %}
                     </div>
 
@@ -54,6 +59,8 @@
 
             {% endfor %}
         </div>
+
+        
     </div>
 
 </body>
