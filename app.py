@@ -4,6 +4,7 @@ from flask_pymongo import PyMongo
 import gspread
 from google.oauth2.service_account import Credentials
 import json
+from read import createSet
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -63,20 +64,29 @@ def index():
 @app.route('/set/<set>')
 def seeSet(set):
     theSet = mongo.db.sets.find_one({"setId": set})
-    sheet = SHEET.worksheet(theSet["name"]).get_all_values()
-    have = 0
-    for c in sheet:
-        if c[1]:
-            have += 1
+    try:
+        sheet = SHEET.worksheet(theSet["name"]).get_all_values()
+        have = 0
+        if len(sheet[0]) > 1:
+            for c in sheet:
+                if c[1]:
+                    have += 1
 
-    print(have)
-    mongo.db.sets.update_one({"setId": set}, {"$set": {"set_total": len(sheet), "have": have}})
-    return render_template("sets.html", set=theSet, cards=sheet)
+        print(have)
+        mongo.db.sets.update_one({"setId": set}, {"$set": {"set_total": len(sheet), "have": have}})
+        return render_template("sets.html", set=theSet, cards=sheet)
+    except:
+        if "user" in session:
+            theSet = mongo.db.sets.find_one({"setId": set})
+            createSet(theSet, SHEET)
+        return render_template("sets.html", set=theSet, cards=sheet)
 
 @app.route('/update/<set>/<num>')
 def updateCardInSet(set, num):
+    theSet = mongo.db.sets.find_one({"setId": set})["name"]
+    # print(theSet["name"])
     if "user" in session:
-        sheet = SHEET.worksheet(set)
+        sheet = SHEET.worksheet(theSet)
         have = (sheet.get("B"+str(num)))
         if have:
             sheet.update("B"+str(num), "")

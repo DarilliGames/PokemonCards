@@ -17,7 +17,7 @@ def loadCard(set, num):
     theString = "cards/" + set +"-"+ num
     return callAPI(theString)
 
-def writeSet(cardSet):
+def writeSetToTextFile(cardSet):
     setInfo = callAPI("sets/" + cardSet)
     cards = []
     file_object = open(cardSet+".txt", 'a')
@@ -29,6 +29,24 @@ def writeSet(cardSet):
     file_object.close()
     print("Wrote Set")
 
+def writeSet(cardSet, total):
+    setInfo = callAPI("sets/" + cardSet)
+    cards = []
+    for x in range(1, total+1):
+        print(x)
+        card = loadCard(cardSet, str(x))
+        card = card["data"]
+        cards.append([card["name"], "", ""])
+    return cards
+
+def createSet(setCode, SHEET):
+    set_info = callAPI("sets/"+setCode["setId"])["data"]
+    print(set_info)
+    print(setCode)
+    total = set_info["total"]
+    cards = writeSet(setCode["setId"], total)
+    aaa = SHEET.add_worksheet(setCode["name"], set_info["total"], 3)
+    aaa.update("A1:C"+str(total), cards)
 
 # allSets = [
 #     "BaseSet", "Jungle", "Fossil", "BaseSet2", "Rocket", "GymHeroes", "GymChallenge", "BlackStarPromo"
