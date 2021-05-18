@@ -1,6 +1,8 @@
 const updateModal = (card) => {
     $("#pkImg").attr("src", card["images"]["small"]);
     let textBack = "";
+    console.log(card);
+    if(card["tcgplayer"]){
     Object.entries(card["tcgplayer"]["prices"]).forEach(([rarity, rarityPrices]) => {
         textBack += `<h5>${rarity}</h5>
         <div class="row">`;
@@ -10,9 +12,13 @@ const updateModal = (card) => {
         textBack += "</div>";
         
     });
+    }else{
+        textBack = "<h5>No Prices found</h5>"
+    }
     $("#priceInfo").html(textBack);
     
 };
+
 
 $(".magnify").click(function (d) {
     let theSet = $(this).attr("id");

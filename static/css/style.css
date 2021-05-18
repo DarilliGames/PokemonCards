@@ -9,7 +9,6 @@
 
 .cardbox{
     text-align: center;
-    height: 100%;
     width: 100%;
 
 }
@@ -36,11 +35,20 @@
 }
 
 
-
+.carddetails{
+    padding: 20px;
+    border: solid black 1px;
+}
+.nums{
+    position: absolute;
+    border: solid black 2px;
+    min-width: 50px;
+    background-color: white;
+    color: black;
+}
 
 #modal-wrapper .container .row{
     height: 60%;
-    overflow-y: scroll;
 }
 
 
@@ -48,8 +56,19 @@
     background-color: white;
     width: 100%;
     height: 100%;
+    overflow-y: scroll;
 }
 
 .flex-row div button{
     width: 100%;
 }
+
+#priceInfo .row{
+    margin: 0;
+}
+
+.update-btn{
+    background-image: linear-gradient(red, red 45%, black 45%, white 55%, white);
+    height: 100%;
+    width: 100%;
+}   
