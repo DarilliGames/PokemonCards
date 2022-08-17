@@ -71,15 +71,14 @@ def seeSet(set):
             for c in sheet:
                 if c[1]:
                     have += 1
-
-        print(have)
         mongo.db.sets.update_one({"setId": set}, {"$set": {"set_total": len(sheet), "have": have}})
         return render_template("sets.html", set=theSet, cards=sheet)
     except:
         if "user" in session:
             theSet = mongo.db.sets.find_one({"setId": set})
             createSet(theSet, SHEET)
-        return render_template("sets.html", set=theSet, cards=sheet)
+            return render_template("sets.html", set=theSet, cards=sheet)
+    return redirect(url_for("index"))
 
 @app.route('/update/<set>/<num>')
 def updateCardInSet(set, num):

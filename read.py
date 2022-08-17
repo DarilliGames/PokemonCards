@@ -8,9 +8,13 @@ import requests
 
 
 def callAPI(theString):
+    # print(theString)
     req = "https://api.pokemontcg.io/v2/"+theString
     response = requests.get(req)
-    return response.json()
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return {"data": {"name": "ERROR"+str(response.status_code)}}
     
 
 def loadCard(set, num):
@@ -45,6 +49,7 @@ def createSet(setCode, SHEET):
     print(setCode)
     total = set_info["total"]
     cards = writeSet(setCode["setId"], total)
+    print(cards)
     aaa = SHEET.add_worksheet(setCode["name"], set_info["total"], 3)
     aaa.update("A1:C"+str(total), cards)
 
