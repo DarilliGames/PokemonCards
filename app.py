@@ -54,6 +54,8 @@ app.templates = ""
 
 mongo = PyMongo(app)
 
+def b_test():
+    print("SOMETHING")
 
 @app.route('/')
 def index():
